@@ -43,7 +43,7 @@ export function ToneBadge({
 export function StatusBadge({ status, className }: { status: CaseStatus; className?: string }) {
   const meta = CASE_STATUS[status];
   return (
-    <ToneBadge tone={meta.tone} className={className} pulse={meta.tone === "progress"}>
+    <ToneBadge tone={meta.tone} {...(className ? { className } : {})} pulse={meta.tone === "progress"}>
       {meta.label}
     </ToneBadge>
   );

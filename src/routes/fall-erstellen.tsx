@@ -129,7 +129,7 @@ function FallErstellen() {
   }
 
   function next() {
-    const schema = stepSchemas[step];
+    const schema = stepSchemas[step] ?? z.object({});
     const parsed = schema.safeParse(form);
     if (!parsed.success) {
       toast.error(parsed.error.issues[0]?.message ?? "Bitte prüfe deine Angaben.");
@@ -164,6 +164,7 @@ function FallErstellen() {
         .from("cases")
         .insert({
           customer_id: user.id,
+          ticket_number: "",
           provider_company: form.providerCompany,
           provider_contact_person: form.providerContactPerson || null,
           provider_phone: form.providerPhone || null,
