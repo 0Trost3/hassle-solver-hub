@@ -10,14 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AnmeldenRouteImport } from './routes/anmelden'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as SoFunktioniertsRouteImport } from './routes/so-funktionierts'
+import { Route as AuthenticatedMeineFaelleIndexRouteImport } from './routes/_authenticated/meine-faelle.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnmeldenRoute = AnmeldenRouteImport.update({
@@ -40,6 +46,12 @@ const SoFunktioniertsRoute = SoFunktioniertsRouteImport.update({
   path: '/so-funktionierts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedMeineFaelleIndexRoute =
+  AuthenticatedMeineFaelleIndexRouteImport.update({
+    id: '/meine-faelle/',
+    path: '/meine-faelle/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/meine-faelle/': typeof AuthenticatedMeineFaelleIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,32 +67,49 @@ export interface FileRoutesByTo {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/meine-faelle': typeof AuthenticatedMeineFaelleIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/anmelden': typeof AnmeldenRoute
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/_authenticated/meine-faelle/': typeof AuthenticatedMeineFaelleIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/anmelden' | '/datenschutz' | '/impressum' | '/so-funktionierts'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/anmelden' | '/datenschutz' | '/impressum' | '/so-funktionierts'
-  id:
-    | '__root__'
     | '/'
     | '/anmelden'
     | '/datenschutz'
     | '/impressum'
     | '/so-funktionierts'
+    | '/meine-faelle/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/anmelden'
+    | '/datenschutz'
+    | '/impressum'
+    | '/so-funktionierts'
+    | '/meine-faelle'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/anmelden'
+    | '/datenschutz'
+    | '/impressum'
+    | '/so-funktionierts'
+    | '/_authenticated/meine-faelle/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AnmeldenRoute: typeof AnmeldenRoute
   DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
@@ -93,6 +123,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/anmelden': {
@@ -123,11 +160,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SoFunktioniertsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/meine-faelle/': {
+      id: '/_authenticated/meine-faelle/'
+      path: '/meine-faelle'
+      fullPath: '/meine-faelle/'
+      preLoaderRoute: typeof AuthenticatedMeineFaelleIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedMeineFaelleIndexRoute: typeof AuthenticatedMeineFaelleIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedMeineFaelleIndexRoute: AuthenticatedMeineFaelleIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AnmeldenRoute: AnmeldenRoute,
   DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,
