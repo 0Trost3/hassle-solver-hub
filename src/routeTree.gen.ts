@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AnmeldenRouteImport } from './routes/anmelden'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as FallErstellenRouteImport } from './routes/fall-erstellen'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as SoFunktioniertsRouteImport } from './routes/so-funktionierts'
 import { Route as AuthenticatedMeineFaelleIndexRouteImport } from './routes/_authenticated/meine-faelle.index'
@@ -35,6 +36,11 @@ const AnmeldenRoute = AnmeldenRouteImport.update({
 const DatenschutzRoute = DatenschutzRouteImport.update({
   id: '/datenschutz',
   path: '/datenschutz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FallErstellenRoute = FallErstellenRouteImport.update({
+  id: '/fall-erstellen',
+  path: '/fall-erstellen',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImpressumRoute = ImpressumRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/anmelden': typeof AnmeldenRoute
   '/datenschutz': typeof DatenschutzRoute
+  '/fall-erstellen': typeof FallErstellenRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
   '/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/anmelden': typeof AnmeldenRoute
   '/datenschutz': typeof DatenschutzRoute
+  '/fall-erstellen': typeof FallErstellenRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
   '/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/anmelden': typeof AnmeldenRoute
   '/datenschutz': typeof DatenschutzRoute
+  '/fall-erstellen': typeof FallErstellenRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
   '/_authenticated/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
     | '/'
     | '/anmelden'
     | '/datenschutz'
+    | '/fall-erstellen'
     | '/impressum'
     | '/so-funktionierts'
     | '/meine-faelle/$caseId'
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/anmelden'
     | '/datenschutz'
+    | '/fall-erstellen'
     | '/impressum'
     | '/so-funktionierts'
     | '/meine-faelle/$caseId'
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/anmelden'
     | '/datenschutz'
+    | '/fall-erstellen'
     | '/impressum'
     | '/so-funktionierts'
     | '/_authenticated/meine-faelle/$caseId'
@@ -125,6 +137,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AnmeldenRoute: typeof AnmeldenRoute
   DatenschutzRoute: typeof DatenschutzRoute
+  FallErstellenRoute: typeof FallErstellenRoute
   ImpressumRoute: typeof ImpressumRoute
   SoFunktioniertsRoute: typeof SoFunktioniertsRoute
 }
@@ -157,6 +170,13 @@ declare module '@tanstack/react-router' {
       path: '/datenschutz'
       fullPath: '/datenschutz'
       preLoaderRoute: typeof DatenschutzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fall-erstellen': {
+      id: '/fall-erstellen'
+      path: '/fall-erstellen'
+      fullPath: '/fall-erstellen'
+      preLoaderRoute: typeof FallErstellenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/impressum': {
@@ -208,6 +228,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AnmeldenRoute: AnmeldenRoute,
   DatenschutzRoute: DatenschutzRoute,
+  FallErstellenRoute: FallErstellenRoute,
   ImpressumRoute: ImpressumRoute,
   SoFunktioniertsRoute: SoFunktioniertsRoute,
 }
