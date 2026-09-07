@@ -16,6 +16,7 @@ import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as SoFunktioniertsRouteImport } from './routes/so-funktionierts'
 import { Route as AuthenticatedMeineFaelleIndexRouteImport } from './routes/_authenticated/meine-faelle.index'
+import { Route as AuthenticatedMeineFaelleCaseIdRouteImport } from './routes/_authenticated/meine-faelle.$caseId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,12 @@ const AuthenticatedMeineFaelleIndexRoute =
     path: '/meine-faelle/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedMeineFaelleCaseIdRoute =
+  AuthenticatedMeineFaelleCaseIdRouteImport.update({
+    id: '/meine-faelle/$caseId',
+    path: '/meine-faelle/$caseId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
   '/meine-faelle/': typeof AuthenticatedMeineFaelleIndexRoute
 }
 export interface FileRoutesByTo {
@@ -67,6 +75,7 @@ export interface FileRoutesByTo {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
   '/meine-faelle': typeof AuthenticatedMeineFaelleIndexRoute
 }
 export interface FileRoutesById {
@@ -77,6 +86,7 @@ export interface FileRoutesById {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/_authenticated/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
   '/_authenticated/meine-faelle/': typeof AuthenticatedMeineFaelleIndexRoute
 }
 export interface FileRouteTypes {
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/so-funktionierts'
+    | '/meine-faelle/$caseId'
     | '/meine-faelle/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/so-funktionierts'
+    | '/meine-faelle/$caseId'
     | '/meine-faelle'
   id:
     | '__root__'
@@ -104,6 +116,7 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/so-funktionierts'
+    | '/_authenticated/meine-faelle/$caseId'
     | '/_authenticated/meine-faelle/'
   fileRoutesById: FileRoutesById
 }
@@ -167,14 +180,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMeineFaelleIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/meine-faelle/$caseId': {
+      id: '/_authenticated/meine-faelle/$caseId'
+      path: '/meine-faelle/$caseId'
+      fullPath: '/meine-faelle/$caseId'
+      preLoaderRoute: typeof AuthenticatedMeineFaelleCaseIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedMeineFaelleCaseIdRoute: typeof AuthenticatedMeineFaelleCaseIdRoute
   AuthenticatedMeineFaelleIndexRoute: typeof AuthenticatedMeineFaelleIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedMeineFaelleCaseIdRoute: AuthenticatedMeineFaelleCaseIdRoute,
   AuthenticatedMeineFaelleIndexRoute: AuthenticatedMeineFaelleIndexRoute,
 }
 
