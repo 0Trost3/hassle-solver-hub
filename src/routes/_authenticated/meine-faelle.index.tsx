@@ -91,7 +91,7 @@ function MeineFaelle() {
               <StatusBadge status={c.status as CaseStatus} />
             </div>
             <p className="mt-3 text-[13px] leading-snug text-foreground/55">
-              {c.next_step ?? CASE_STATUS[c.status as CaseStatus].customerText}
+              {c.next_step ?? CASE_STATUS[c.status as CaseStatus].customerHint}
             </p>
           </Link>
         ))}
