@@ -16,6 +16,7 @@ import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as FallErstellenRouteImport } from './routes/fall-erstellen'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as SoFunktioniertsRouteImport } from './routes/so-funktionierts'
+import { Route as AuthenticatedInternRouteImport } from './routes/_authenticated/intern'
 import { Route as AuthenticatedMeineFaelleIndexRouteImport } from './routes/_authenticated/meine-faelle.index'
 import { Route as AuthenticatedMeineFaelleCaseIdRouteImport } from './routes/_authenticated/meine-faelle.$caseId'
 
@@ -53,6 +54,11 @@ const SoFunktioniertsRoute = SoFunktioniertsRouteImport.update({
   path: '/so-funktionierts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedInternRoute = AuthenticatedInternRouteImport.update({
+  id: '/intern',
+  path: '/intern',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedMeineFaelleIndexRoute =
   AuthenticatedMeineFaelleIndexRouteImport.update({
     id: '/meine-faelle/',
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/fall-erstellen': typeof FallErstellenRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/intern': typeof AuthenticatedInternRoute
   '/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
   '/meine-faelle/': typeof AuthenticatedMeineFaelleIndexRoute
 }
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/fall-erstellen': typeof FallErstellenRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/intern': typeof AuthenticatedInternRoute
   '/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
   '/meine-faelle': typeof AuthenticatedMeineFaelleIndexRoute
 }
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/fall-erstellen': typeof FallErstellenRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/_authenticated/intern': typeof AuthenticatedInternRoute
   '/_authenticated/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
   '/_authenticated/meine-faelle/': typeof AuthenticatedMeineFaelleIndexRoute
 }
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/fall-erstellen'
     | '/impressum'
     | '/so-funktionierts'
+    | '/intern'
     | '/meine-faelle/$caseId'
     | '/meine-faelle/'
   fileRoutesByTo: FileRoutesByTo
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/fall-erstellen'
     | '/impressum'
     | '/so-funktionierts'
+    | '/intern'
     | '/meine-faelle/$caseId'
     | '/meine-faelle'
   id:
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/fall-erstellen'
     | '/impressum'
     | '/so-funktionierts'
+    | '/_authenticated/intern'
     | '/_authenticated/meine-faelle/$caseId'
     | '/_authenticated/meine-faelle/'
   fileRoutesById: FileRoutesById
@@ -193,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SoFunktioniertsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/intern': {
+      id: '/_authenticated/intern'
+      path: '/intern'
+      fullPath: '/intern'
+      preLoaderRoute: typeof AuthenticatedInternRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/meine-faelle/': {
       id: '/_authenticated/meine-faelle/'
       path: '/meine-faelle'
@@ -211,11 +230,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedInternRoute: typeof AuthenticatedInternRoute
   AuthenticatedMeineFaelleCaseIdRoute: typeof AuthenticatedMeineFaelleCaseIdRoute
   AuthenticatedMeineFaelleIndexRoute: typeof AuthenticatedMeineFaelleIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedInternRoute: AuthenticatedInternRoute,
   AuthenticatedMeineFaelleCaseIdRoute: AuthenticatedMeineFaelleCaseIdRoute,
   AuthenticatedMeineFaelleIndexRoute: AuthenticatedMeineFaelleIndexRoute,
 }
