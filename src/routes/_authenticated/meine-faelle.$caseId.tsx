@@ -55,7 +55,7 @@ function FallDetail() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("case_contacts")
-        .select("id, channel, occurred_at, summary, author")
+        .select("id, channel, occurred_at, note, outcome, author")
         .eq("case_id", caseId)
         .order("occurred_at", { ascending: false });
       if (error) throw error;
@@ -249,7 +249,7 @@ function FallDetail() {
                   <span>·</span>
                   <span>{c.author === "staff" ? "Kümmer" : "Du"}</span>
                 </div>
-                <p className="mt-1 text-[13.5px] leading-snug text-foreground/80">{c.summary}</p>
+                <p className="mt-1 text-[13.5px] leading-snug text-foreground/80">{c.outcome ?? c.note}</p>
               </li>
             ))}
           </ul>
