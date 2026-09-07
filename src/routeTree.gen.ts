@@ -10,33 +10,148 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AnmeldenRouteImport } from './routes/anmelden'
+import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as FallErstellenRouteImport } from './routes/fall-erstellen'
+import { Route as ImpressumRouteImport } from './routes/impressum'
+import { Route as SoFunktioniertsRouteImport } from './routes/so-funktionierts'
+import { Route as AuthenticatedInternRouteImport } from './routes/_authenticated/intern'
+import { Route as AuthenticatedMeineFaelleIndexRouteImport } from './routes/_authenticated/meine-faelle.index'
+import { Route as AuthenticatedMeineFaelleCaseIdRouteImport } from './routes/_authenticated/meine-faelle.$caseId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnmeldenRoute = AnmeldenRouteImport.update({
+  id: '/anmelden',
+  path: '/anmelden',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatenschutzRoute = DatenschutzRouteImport.update({
+  id: '/datenschutz',
+  path: '/datenschutz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FallErstellenRoute = FallErstellenRouteImport.update({
+  id: '/fall-erstellen',
+  path: '/fall-erstellen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpressumRoute = ImpressumRouteImport.update({
+  id: '/impressum',
+  path: '/impressum',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoFunktioniertsRoute = SoFunktioniertsRouteImport.update({
+  id: '/so-funktionierts',
+  path: '/so-funktionierts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedInternRoute = AuthenticatedInternRouteImport.update({
+  id: '/intern',
+  path: '/intern',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMeineFaelleIndexRoute =
+  AuthenticatedMeineFaelleIndexRouteImport.update({
+    id: '/meine-faelle/',
+    path: '/meine-faelle/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMeineFaelleCaseIdRoute =
+  AuthenticatedMeineFaelleCaseIdRouteImport.update({
+    id: '/meine-faelle/$caseId',
+    path: '/meine-faelle/$caseId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/anmelden': typeof AnmeldenRoute
+  '/datenschutz': typeof DatenschutzRoute
+  '/fall-erstellen': typeof FallErstellenRoute
+  '/impressum': typeof ImpressumRoute
+  '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/intern': typeof AuthenticatedInternRoute
+  '/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
+  '/meine-faelle/': typeof AuthenticatedMeineFaelleIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/anmelden': typeof AnmeldenRoute
+  '/datenschutz': typeof DatenschutzRoute
+  '/fall-erstellen': typeof FallErstellenRoute
+  '/impressum': typeof ImpressumRoute
+  '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/intern': typeof AuthenticatedInternRoute
+  '/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
+  '/meine-faelle': typeof AuthenticatedMeineFaelleIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/anmelden': typeof AnmeldenRoute
+  '/datenschutz': typeof DatenschutzRoute
+  '/fall-erstellen': typeof FallErstellenRoute
+  '/impressum': typeof ImpressumRoute
+  '/so-funktionierts': typeof SoFunktioniertsRoute
+  '/_authenticated/intern': typeof AuthenticatedInternRoute
+  '/_authenticated/meine-faelle/$caseId': typeof AuthenticatedMeineFaelleCaseIdRoute
+  '/_authenticated/meine-faelle/': typeof AuthenticatedMeineFaelleIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/anmelden'
+    | '/datenschutz'
+    | '/fall-erstellen'
+    | '/impressum'
+    | '/so-funktionierts'
+    | '/intern'
+    | '/meine-faelle/$caseId'
+    | '/meine-faelle/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/anmelden'
+    | '/datenschutz'
+    | '/fall-erstellen'
+    | '/impressum'
+    | '/so-funktionierts'
+    | '/intern'
+    | '/meine-faelle/$caseId'
+    | '/meine-faelle'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/anmelden'
+    | '/datenschutz'
+    | '/fall-erstellen'
+    | '/impressum'
+    | '/so-funktionierts'
+    | '/_authenticated/intern'
+    | '/_authenticated/meine-faelle/$caseId'
+    | '/_authenticated/meine-faelle/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AnmeldenRoute: typeof AnmeldenRoute
+  DatenschutzRoute: typeof DatenschutzRoute
+  FallErstellenRoute: typeof FallErstellenRoute
+  ImpressumRoute: typeof ImpressumRoute
+  SoFunktioniertsRoute: typeof SoFunktioniertsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +163,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/anmelden': {
+      id: '/anmelden'
+      path: '/anmelden'
+      fullPath: '/anmelden'
+      preLoaderRoute: typeof AnmeldenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datenschutz': {
+      id: '/datenschutz'
+      path: '/datenschutz'
+      fullPath: '/datenschutz'
+      preLoaderRoute: typeof DatenschutzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fall-erstellen': {
+      id: '/fall-erstellen'
+      path: '/fall-erstellen'
+      fullPath: '/fall-erstellen'
+      preLoaderRoute: typeof FallErstellenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impressum': {
+      id: '/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/so-funktionierts': {
+      id: '/so-funktionierts'
+      path: '/so-funktionierts'
+      fullPath: '/so-funktionierts'
+      preLoaderRoute: typeof SoFunktioniertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/intern': {
+      id: '/_authenticated/intern'
+      path: '/intern'
+      fullPath: '/intern'
+      preLoaderRoute: typeof AuthenticatedInternRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/meine-faelle/': {
+      id: '/_authenticated/meine-faelle/'
+      path: '/meine-faelle'
+      fullPath: '/meine-faelle/'
+      preLoaderRoute: typeof AuthenticatedMeineFaelleIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/meine-faelle/$caseId': {
+      id: '/_authenticated/meine-faelle/$caseId'
+      path: '/meine-faelle/$caseId'
+      fullPath: '/meine-faelle/$caseId'
+      preLoaderRoute: typeof AuthenticatedMeineFaelleCaseIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedInternRoute: typeof AuthenticatedInternRoute
+  AuthenticatedMeineFaelleCaseIdRoute: typeof AuthenticatedMeineFaelleCaseIdRoute
+  AuthenticatedMeineFaelleIndexRoute: typeof AuthenticatedMeineFaelleIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedInternRoute: AuthenticatedInternRoute,
+  AuthenticatedMeineFaelleCaseIdRoute: AuthenticatedMeineFaelleCaseIdRoute,
+  AuthenticatedMeineFaelleIndexRoute: AuthenticatedMeineFaelleIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AnmeldenRoute: AnmeldenRoute,
+  DatenschutzRoute: DatenschutzRoute,
+  FallErstellenRoute: FallErstellenRoute,
+  ImpressumRoute: ImpressumRoute,
+  SoFunktioniertsRoute: SoFunktioniertsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
