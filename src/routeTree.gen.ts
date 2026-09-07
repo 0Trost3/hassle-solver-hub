@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as SoFunktioniertsRouteImport } from './routes/so-funktionierts'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatenschutzRoute = DatenschutzRouteImport.update({
+  id: '/datenschutz',
+  path: '/datenschutz',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImpressumRoute = ImpressumRouteImport.update({
@@ -31,30 +37,34 @@ const SoFunktioniertsRoute = SoFunktioniertsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/so-funktionierts': typeof SoFunktioniertsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/impressum' | '/so-funktionierts'
+  fullPaths: '/' | '/datenschutz' | '/impressum' | '/so-funktionierts'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/impressum' | '/so-funktionierts'
-  id: '__root__' | '/' | '/impressum' | '/so-funktionierts'
+  to: '/' | '/datenschutz' | '/impressum' | '/so-funktionierts'
+  id: '__root__' | '/' | '/datenschutz' | '/impressum' | '/so-funktionierts'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
   SoFunktioniertsRoute: typeof SoFunktioniertsRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datenschutz': {
+      id: '/datenschutz'
+      path: '/datenschutz'
+      fullPath: '/datenschutz'
+      preLoaderRoute: typeof DatenschutzRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/impressum': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,
   SoFunktioniertsRoute: SoFunktioniertsRoute,
 }
