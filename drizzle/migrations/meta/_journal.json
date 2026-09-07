@@ -8,6 +8,13 @@
       "when": 1788739613001,
       "tag": "0000_create_case_management_core",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788739638035,
+      "tag": "0001_case_documents_storage_policies",
+      "breakpoints": true
     }
   ]
 }
