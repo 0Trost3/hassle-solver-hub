@@ -164,7 +164,7 @@ function FallErstellen() {
         first_name: form.firstName,
         last_name: form.lastName,
         phone: form.phone,
-        email: user.email ?? null,
+        email: form.email.trim() || user.email || null,
         preferred_contact: form.preferredContact,
       });
 
@@ -275,7 +275,9 @@ function FallErstellen() {
                 value={form.preferredContact}
                 onChange={(e) => set("preferredContact", e.target.value as ContactChannel)}
               >
-                {CONTACT_CHANNELS.map((c) => (
+                {CONTACT_CHANNELS.filter(
+                  (c) => c.value !== "in_person" && c.value !== "letter",
+                ).map((c) => (
                   <option key={c.value} value={c.value}>
                     {c.label}
                   </option>
@@ -462,6 +464,7 @@ function FallErstellen() {
               {[
                 ["Name", `${form.firstName} ${form.lastName}`.trim() || "–"],
                 ["Telefon", form.phone || "–"],
+                ["E-Mail", form.email || "–"],
                 ["Dienstleister", form.providerCompany || "–"],
                 ["Leistung", form.serviceType || "–"],
                 [
