@@ -269,6 +269,17 @@ function FallErstellen() {
                 onChange={(e) => set("phone", e.target.value)}
               />
             </Field>
+            <Field label="E-Mail-Adresse">
+              <input
+                className={inputClass}
+                type="email"
+                value={form.email}
+                maxLength={255}
+                inputMode="email"
+                autoComplete="email"
+                onChange={(e) => set("email", e.target.value)}
+              />
+            </Field>
             <Field label="So möchtest du kontaktiert werden">
               <select
                 className={inputClass}

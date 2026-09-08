@@ -9,7 +9,7 @@ export function SiteHeader() {
     <header className="flex items-center justify-between py-5">
       <Link to="/" className="flex items-center gap-2.5">
         <span className="grid size-8 place-items-center rounded-[9px] bg-primary/20 ring-1 ring-primary/40">
-          <span className="text-[15px] font-bold text-primary">K</span>
+          <span className="text-[15px] font-bold text-primary">Y</span>
         </span>
         <span className="text-[17px] font-semibold tracking-tight">YLT Services</span>
       </Link>
