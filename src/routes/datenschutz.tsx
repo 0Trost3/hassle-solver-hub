@@ -64,10 +64,14 @@ function DatenschutzPage() {
       </p>
 
       <div className="panel mt-6 space-y-5 p-5">
-        <p className="rounded-xl bg-warning/12 px-4 py-3 text-[13px] text-warning ring-1 ring-warning/25">
-          Platzhalter: Bitte vor Veröffentlichung durch eine rechtlich geprüfte
-          Datenschutzerklärung mit Verantwortlichem und Kontaktdaten ergänzen.
-        </p>
+        <section>
+          <h2 className="text-[15px] font-semibold text-foreground">Verantwortlicher</h2>
+          <p className="mt-2 text-[14px] leading-relaxed text-foreground/65">
+            YLT Services, Inhaber: Yannic Trost, Meitnerweg 4, 44227 Dortmund, Deutschland.
+            <br />
+            Telefon: +49 157 70361963 · E-Mail: ylt.servicesdortmund@gmail.com
+          </p>
+        </section>
         {ABSCHNITTE.map((a) => (
           <section key={a.title}>
             <h2 className="text-[15px] font-semibold text-foreground">{a.title}</h2>
