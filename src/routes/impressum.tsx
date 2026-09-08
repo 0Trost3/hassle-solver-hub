@@ -22,39 +22,37 @@ function ImpressumPage() {
       <h1 className="pt-6 text-[30px] font-semibold tracking-tight">Impressum</h1>
 
       <div className="panel mt-6 space-y-5 p-5 text-[14px] leading-relaxed text-foreground/70">
-        <p className="rounded-xl bg-warning/12 px-4 py-3 text-[13px] text-warning ring-1 ring-warning/25">
-          Platzhalter: Bitte ersetze die folgenden Angaben durch deine echten Unternehmensdaten,
-          bevor die Seite online geht.
-        </p>
         <section>
           <h2 className="text-[15px] font-semibold text-foreground">Angaben gemäß § 5 DDG</h2>
           <p className="mt-2">
-            [Firmenname]
+            YLT Services
             <br />
-            [Straße und Hausnummer]
+            Inhaber: Yannic Trost
             <br />
-            [PLZ Ort]
+            Meitnerweg 4
+            <br />
+            44227 Dortmund
+            <br />
+            Deutschland
           </p>
         </section>
         <section>
           <h2 className="text-[15px] font-semibold text-foreground">Kontakt</h2>
           <p className="mt-2">
-            Telefon: [Telefonnummer]
+            Telefon:{" "}
+            <a href="tel:+4915770361963" className="text-primary hover:underline">
+              +49 157 70361963
+            </a>
             <br />
-            E-Mail: [E-Mail-Adresse]
+            E-Mail:{" "}
+            <a href="mailto:ylt.servicesdortmund@gmail.com" className="text-primary hover:underline">
+              ylt.servicesdortmund@gmail.com
+            </a>
           </p>
         </section>
         <section>
           <h2 className="text-[15px] font-semibold text-foreground">Vertreten durch</h2>
-          <p className="mt-2">[Name der vertretungsberechtigten Person]</p>
-        </section>
-        <section>
-          <h2 className="text-[15px] font-semibold text-foreground">Registereintrag / USt-IdNr.</h2>
-          <p className="mt-2">
-            [Registergericht und Nummer, falls vorhanden]
-            <br />
-            [Umsatzsteuer-Identifikationsnummer, falls vorhanden]
-          </p>
+          <p className="mt-2">Yannic Trost (Inhaber)</p>
         </section>
         <section>
           <h2 className="text-[15px] font-semibold text-foreground">Hinweis zur Tätigkeit</h2>
