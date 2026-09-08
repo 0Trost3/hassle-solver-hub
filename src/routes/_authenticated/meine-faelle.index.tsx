@@ -10,9 +10,9 @@ import { useAuth } from "@/hooks/useAuth";
 export const Route = createFileRoute("/_authenticated/meine-faelle/")({
   head: () => ({
     meta: [
-      { title: "Meine Fälle | Kümmer" },
+      { title: "Meine Fälle | YLT Services" },
       { name: "description", content: "Der aktuelle Stand deiner Fälle auf einen Blick." },
-      { property: "og:title", content: "Meine Fälle | Kümmer" },
+      { property: "og:title", content: "Meine Fälle | YLT Services" },
       { property: "og:description", content: "Der aktuelle Stand deiner Fälle auf einen Blick." },
       { name: "robots", content: "noindex" },
     ],

@@ -18,7 +18,7 @@ import {
 export const Route = createFileRoute("/fall-erstellen")({
   head: () => ({
     meta: [
-      { title: "Problem schildern – wir übernehmen das Gespräch | Kümmer" },
+      { title: "Problem schildern – wir übernehmen das Gespräch | YLT Services" },
       {
         name: "description",
         content:

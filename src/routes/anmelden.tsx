@@ -15,13 +15,13 @@ export const Route = createFileRoute("/anmelden")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Anmelden – deinen Fall verfolgen | Kümmer" },
+      { title: "Anmelden – deinen Fall verfolgen | YLT Services" },
       {
         name: "description",
         content:
           "Melde dich an, um den Stand deines Falls zu sehen, Nachrichten zu lesen und Dokumente hochzuladen.",
       },
-      { property: "og:title", content: "Anmelden – deinen Fall verfolgen | Kümmer" },
+      { property: "og:title", content: "Anmelden – deinen Fall verfolgen | YLT Services" },
       {
         property: "og:description",
         content: "Sieh jederzeit, wo dein Fall steht und was als Nächstes passiert.",
