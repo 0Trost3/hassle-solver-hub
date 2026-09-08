@@ -7,7 +7,7 @@ import gespraechBild from "@/assets/persoenliches-gespraech.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Handwerker meldet sich nicht? Wir kümmern uns darum. | Kümmer" },
+      { title: "Handwerker meldet sich nicht? Wir kümmern uns darum. | YLT Services" },
       {
         name: "description",
         content:

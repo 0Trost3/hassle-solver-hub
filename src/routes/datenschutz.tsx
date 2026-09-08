@@ -5,13 +5,13 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 export const Route = createFileRoute("/datenschutz")({
   head: () => ({
     meta: [
-      { title: "Datenschutz | Kümmer" },
+      { title: "Datenschutz | YLT Services" },
       {
         name: "description",
         content:
           "Wie wir mit deinen Daten umgehen: Zweck, Speicherung, Zugriff, Löschung und deine Rechte nach DSGVO.",
       },
-      { property: "og:title", content: "Datenschutz | Kümmer" },
+      { property: "og:title", content: "Datenschutz | YLT Services" },
       {
         property: "og:description",
         content: "Zweck, Speicherung, Zugriff, Löschung und deine Rechte nach DSGVO.",

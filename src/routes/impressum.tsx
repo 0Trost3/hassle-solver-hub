@@ -5,10 +5,10 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 export const Route = createFileRoute("/impressum")({
   head: () => ({
     meta: [
-      { title: "Impressum | Kümmer" },
-      { name: "description", content: "Anbieterkennzeichnung nach § 5 DDG für Kümmer." },
-      { property: "og:title", content: "Impressum | Kümmer" },
-      { property: "og:description", content: "Anbieterkennzeichnung nach § 5 DDG für Kümmer." },
+      { title: "Impressum | YLT Services" },
+      { name: "description", content: "Anbieterkennzeichnung nach § 5 DDG für YLT Services." },
+      { property: "og:title", content: "Impressum | YLT Services" },
+      { property: "og:description", content: "Anbieterkennzeichnung nach § 5 DDG für YLT Services." },
       { name: "robots", content: "noindex" },
     ],
   }),

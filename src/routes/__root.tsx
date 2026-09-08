@@ -76,7 +76,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Kümmer – Wir übernehmen das Gespräch mit deinem Handwerker" },
+      { title: "YLT Services – Wir übernehmen das Gespräch mit deinem Handwerker" },
       {
         name: "description",
         content:

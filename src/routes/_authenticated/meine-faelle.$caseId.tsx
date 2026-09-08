@@ -23,9 +23,9 @@ import {
 export const Route = createFileRoute("/_authenticated/meine-faelle/$caseId")({
   head: () => ({
     meta: [
-      { title: "Fallstatus | Kümmer" },
+      { title: "Fallstatus | YLT Services" },
       { name: "description", content: "Aktueller Stand, Verlauf und Nachrichten zu deinem Fall." },
-      { property: "og:title", content: "Fallstatus | Kümmer" },
+      { property: "og:title", content: "Fallstatus | YLT Services" },
       {
         property: "og:description",
         content: "Aktueller Stand, Verlauf und Nachrichten zu deinem Fall.",
@@ -247,7 +247,7 @@ function FallDetail() {
                   <span>·</span>
                   <span>{channelLabel(c.channel as ContactChannel)}</span>
                   <span>·</span>
-                  <span>{c.author === "staff" ? "Kümmer" : "Du"}</span>
+                  <span>{c.author === "staff" ? "YLT Services" : "Du"}</span>
                 </div>
                 <p className="mt-1 text-[13.5px] leading-snug text-foreground/80">{c.outcome ?? c.note}</p>
               </li>

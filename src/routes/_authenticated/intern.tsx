@@ -12,9 +12,9 @@ import { CASE_STATUS, deadlineState, formatDate, type CaseStatus } from "@/lib/c
 export const Route = createFileRoute("/_authenticated/intern")({
   head: () => ({
     meta: [
-      { title: "Interner Bereich | Kümmer" },
+      { title: "Interner Bereich | YLT Services" },
       { name: "description", content: "Fallübersicht und Bearbeitung für das Team." },
-      { property: "og:title", content: "Interner Bereich | Kümmer" },
+      { property: "og:title", content: "Interner Bereich | YLT Services" },
       { property: "og:description", content: "Fallübersicht und Bearbeitung für das Team." },
       { name: "robots", content: "noindex" },
     ],

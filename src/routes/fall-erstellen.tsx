@@ -18,7 +18,7 @@ import {
 export const Route = createFileRoute("/fall-erstellen")({
   head: () => ({
     meta: [
-      { title: "Problem schildern – wir übernehmen das Gespräch | Kümmer" },
+      { title: "Problem schildern – wir übernehmen das Gespräch | YLT Services" },
       {
         name: "description",
         content:
@@ -41,6 +41,12 @@ const stepSchemas = [
     firstName: z.string().trim().min(2, "Bitte gib deinen Vornamen an.").max(80),
     lastName: z.string().trim().min(2, "Bitte gib deinen Nachnamen an.").max(80),
     phone: z.string().trim().min(5, "Bitte gib eine Telefonnummer an.").max(40),
+    email: z
+      .string()
+      .trim()
+      .min(1, "Bitte gib deine E-Mail-Adresse an.")
+      .email("Bitte gib eine gültige E-Mail-Adresse an.")
+      .max(255),
   }),
   z.object({
     providerCompany: z.string().trim().min(2, "Bitte nenne den Dienstleister.").max(160),
@@ -61,6 +67,7 @@ type FormState = {
   firstName: string;
   lastName: string;
   phone: string;
+  email: string;
   preferredContact: ContactChannel;
   providerCompany: string;
   providerContactPerson: string;
@@ -81,6 +88,7 @@ const initial: FormState = {
   firstName: "",
   lastName: "",
   phone: "",
+  email: "",
   preferredContact: "phone",
   providerCompany: "",
   providerContactPerson: "",
@@ -156,7 +164,7 @@ function FallErstellen() {
         first_name: form.firstName,
         last_name: form.lastName,
         phone: form.phone,
-        email: user.email ?? null,
+        email: form.email.trim() || user.email || null,
         preferred_contact: form.preferredContact,
       });
 
@@ -261,13 +269,26 @@ function FallErstellen() {
                 onChange={(e) => set("phone", e.target.value)}
               />
             </Field>
+            <Field label="E-Mail-Adresse">
+              <input
+                className={inputClass}
+                type="email"
+                value={form.email}
+                maxLength={255}
+                inputMode="email"
+                autoComplete="email"
+                onChange={(e) => set("email", e.target.value)}
+              />
+            </Field>
             <Field label="So möchtest du kontaktiert werden">
               <select
                 className={inputClass}
                 value={form.preferredContact}
                 onChange={(e) => set("preferredContact", e.target.value as ContactChannel)}
               >
-                {CONTACT_CHANNELS.map((c) => (
+                {CONTACT_CHANNELS.filter(
+                  (c) => c.value !== "in_person" && c.value !== "letter",
+                ).map((c) => (
                   <option key={c.value} value={c.value}>
                     {c.label}
                   </option>
@@ -454,6 +475,7 @@ function FallErstellen() {
               {[
                 ["Name", `${form.firstName} ${form.lastName}`.trim() || "–"],
                 ["Telefon", form.phone || "–"],
+                ["E-Mail", form.email || "–"],
                 ["Dienstleister", form.providerCompany || "–"],
                 ["Leistung", form.serviceType || "–"],
                 [

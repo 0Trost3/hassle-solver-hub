@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 export const Route = createFileRoute("/so-funktionierts")({
   head: () => ({
     meta: [
-      { title: "So funktioniert’s – vom Fall bis zur Lösung | Kümmer" },
+      { title: "So funktioniert’s – vom Fall bis zur Lösung | YLT Services" },
       {
         name: "description",
         content:

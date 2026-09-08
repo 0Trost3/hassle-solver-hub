@@ -4,7 +4,7 @@ export function SiteFooter() {
   return (
     <footer className="pt-10 pb-2">
       <div className="flex items-center justify-between text-[12.5px] text-foreground/40">
-        <span className="font-medium text-foreground/55">Kümmer</span>
+        <span className="font-medium text-foreground/55">YLT Services</span>
         <span>© {new Date().getFullYear()}</span>
       </div>
       <p className="mt-3 max-w-[40ch] text-[12px] leading-relaxed text-foreground/35 text-pretty">
