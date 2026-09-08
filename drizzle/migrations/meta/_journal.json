@@ -29,6 +29,13 @@
       "when": 1788860577986,
       "tag": "0003_storage_update_policy_and_audit_log_restrict",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1788860597838,
+      "tag": "0004_drop_permissive_audit_insert_policy",
+      "breakpoints": true
     }
   ]
 }
