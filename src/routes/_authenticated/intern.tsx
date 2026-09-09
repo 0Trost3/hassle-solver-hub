@@ -178,7 +178,7 @@ function InternPage() {
               <p className="mt-2 text-[13px] text-foreground/70">
                 <span className="text-foreground/45">Telefontermin: </span>
                 {terminQuery.data?.[c.id]
-                  ? formatSlotFull(terminQuery.data[c.id])
+                  ? formatSlotFull(terminQuery.data[c.id]!)
                   : "noch nicht gebucht"}
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-2">
