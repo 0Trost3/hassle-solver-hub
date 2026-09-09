@@ -6,6 +6,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { StatusBadge, ToneBadge } from "@/components/StatusBadge";
+import { SlotPicker } from "@/components/booking/SlotPicker";
+import { formatSlotFull } from "@/lib/slots";
 import {
   CASE_STATUS,
   STATUS_FLOW,
@@ -40,6 +42,7 @@ function FallDetail() {
   const { caseId } = useParams({ from: "/_authenticated/meine-faelle/$caseId" });
   const queryClient = useQueryClient();
   const [message, setMessage] = useState("");
+  const [showPicker, setShowPicker] = useState(false);
 
   const caseQuery = useQuery({
     queryKey: ["fall", caseId],
@@ -87,6 +90,38 @@ function FallDetail() {
       if (error) throw error;
       return data;
     },
+  });
+
+  const appointmentQuery = useQuery({
+    queryKey: ["fall-termin", caseId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("appointments")
+        .select("id, scheduled_at, status")
+        .eq("case_id", caseId)
+        .neq("status", "cancelled")
+        .order("scheduled_at", { ascending: true })
+        .limit(1)
+        .maybeSingle();
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const cancelAppointment = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase
+        .from("appointments")
+        .update({ status: "cancelled" })
+        .eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fall-termin", caseId] });
+      queryClient.invalidateQueries({ queryKey: ["belegte-termine"] });
+      toast.success("Termin abgesagt.");
+    },
+    onError: () => toast.error("Der Termin konnte nicht abgesagt werden."),
   });
 
   const sendMessage = useMutation({
@@ -204,6 +239,63 @@ function FallDetail() {
           </ol>
         </section>
       )}
+
+      {/* Telefontermin */}
+      <section className="panel mt-3 p-5">
+        <h2 className="text-[13px] font-medium tracking-[0.12em] text-foreground/45 uppercase">
+          Telefontermin
+        </h2>
+        {appointmentQuery.data && !showPicker ? (
+          <>
+            <p className="mt-3 text-[15px] font-medium text-foreground/90">
+              {formatSlotFull(appointmentQuery.data.scheduled_at)}
+            </p>
+            <p className="mt-1 text-[13px] text-foreground/50">
+              30 Minuten – wir rufen dich an.
+            </p>
+            <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => setShowPicker(true)}
+                className="min-h-[48px] flex-1 rounded-xl bg-surface text-[14px] font-medium ring-1 ring-border"
+              >
+                Termin ändern
+              </button>
+              <button
+                type="button"
+                onClick={() => cancelAppointment.mutate(appointmentQuery.data!.id)}
+                disabled={cancelAppointment.isPending}
+                className="min-h-[48px] flex-1 rounded-xl bg-surface text-[14px] font-medium text-foreground/70 ring-1 ring-border disabled:opacity-60"
+              >
+                Termin absagen
+              </button>
+            </div>
+          </>
+        ) : showPicker ? (
+          <div className="mt-4">
+            <SlotPicker
+              caseId={caseId}
+              existingAppointmentId={appointmentQuery.data?.id ?? null}
+              onBooked={() => setShowPicker(false)}
+              onSkip={() => setShowPicker(false)}
+              skipLabel="Abbrechen"
+            />
+          </div>
+        ) : (
+          <>
+            <p className="mt-3 text-[13.5px] text-foreground/50">
+              Noch kein Telefontermin. Such dir eine Zeit aus – Mo–Sa, 8 bis 20 Uhr.
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowPicker(true)}
+              className="mt-4 min-h-[48px] w-full rounded-xl bg-primary text-[14.5px] font-semibold text-primary-foreground"
+            >
+              Termin wählen
+            </button>
+          </>
+        )}
+      </section>
 
       {/* Falldaten */}
       <section className="panel mt-3 p-5">
