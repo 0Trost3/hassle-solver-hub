@@ -159,6 +159,7 @@ function InternPage() {
         )}
         {list.map((c) => {
           const frist = deadlineState(c.deadline_at);
+          const termin = terminQuery.data?.[c.id];
           return (
             <article key={c.id} className="panel p-5">
               <div className="flex items-center justify-between">
