@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SlotPicker } from "@/components/booking/SlotPicker";
 import {
   CONTACT_CHANNELS,
   PROBLEM_TYPES,
@@ -131,6 +132,7 @@ function FallErstellen() {
   const [form, setForm] = useState<FormState>(initial);
   const [files, setFiles] = useState<File[]>([]);
   const [busy, setBusy] = useState(false);
+  const [createdCaseId, setCreatedCaseId] = useState<string | null>(null);
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -210,13 +212,37 @@ function FallErstellen() {
       }
 
       toast.success("Dein Fall ist bei uns. Wir melden uns persönlich.");
-      navigate({ to: "/meine-faelle/$caseId", params: { caseId: created.id } });
+      setCreatedCaseId(created.id);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       console.error(err);
       toast.error("Dein Fall konnte nicht gespeichert werden. Bitte versuche es erneut.");
     } finally {
       setBusy(false);
     }
+  }
+
+  if (createdCaseId) {
+    const goToCase = () =>
+      navigate({ to: "/meine-faelle/$caseId", params: { caseId: createdCaseId } });
+    return (
+      <div className="mx-auto max-w-[440px] px-5 pb-16 md:max-w-2xl">
+        <SiteHeader />
+        <div className="panel mt-6 p-5">
+          <h1 className="text-[21px] font-semibold tracking-tight">
+            Wann sollen wir dich anrufen?
+          </h1>
+          <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/55">
+            Such dir einen Termin für ein 30-minütiges Telefongespräch aus. Mo–Sa zwischen 8 und 20
+            Uhr. Du kannst das auch später in deinem Fall nachholen.
+          </p>
+          <div className="mt-5">
+            <SlotPicker caseId={createdCaseId} onBooked={goToCase} onSkip={goToCase} />
+          </div>
+        </div>
+        <SiteFooter />
+      </div>
+    );
   }
 
   return (

@@ -36,6 +36,13 @@
       "when": 1788860597838,
       "tag": "0004_drop_permissive_audit_insert_policy",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1788912584103,
+      "tag": "0005_appointment_slot_availability",
+      "breakpoints": true
     }
   ]
 }

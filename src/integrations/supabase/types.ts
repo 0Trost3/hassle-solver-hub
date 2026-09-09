@@ -440,6 +440,12 @@ export type Database = {
         Args: { _days: number; _from: string }
         Returns: string
       }
+      booked_slots: {
+        Args: { _from: string; _to: string }
+        Returns: {
+          scheduled_at: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
