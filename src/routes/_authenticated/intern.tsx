@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { StatusBadge, ToneBadge } from "@/components/StatusBadge";
 import { CASE_STATUS, deadlineState, formatDate, type CaseStatus } from "@/lib/case-meta";
+import { formatSlotFull } from "@/lib/slots";
 
 export const Route = createFileRoute("/_authenticated/intern")({
   head: () => ({
@@ -45,6 +46,22 @@ function InternPage() {
         .order("created_at", { ascending: false });
       if (error) throw error;
       return data;
+    },
+  });
+
+  const terminQuery = useQuery({
+    queryKey: ["intern-termine"],
+    enabled: isStaff,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("appointments")
+        .select("case_id, scheduled_at, status")
+        .neq("status", "cancelled")
+        .order("scheduled_at", { ascending: true });
+      if (error) throw error;
+      const map: Record<string, string> = {};
+      for (const a of data ?? []) if (!map[a.case_id]) map[a.case_id] = a.scheduled_at;
+      return map;
     },
   });
 
@@ -157,6 +174,12 @@ function InternPage() {
               </div>
               <p className="mt-3 text-[13px] text-foreground/55">
                 {c.next_step ?? CASE_STATUS[c.status as CaseStatus].customerHint}
+              </p>
+              <p className="mt-2 text-[13px] text-foreground/70">
+                <span className="text-foreground/45">Telefontermin: </span>
+                {terminQuery.data?.[c.id]
+                  ? formatSlotFull(terminQuery.data[c.id])
+                  : "noch nicht gebucht"}
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 <select
