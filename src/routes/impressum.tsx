@@ -9,6 +9,8 @@ export const Route = createFileRoute("/impressum")({
       { name: "description", content: "Anbieterkennzeichnung nach § 5 DDG für YLT Services." },
       { property: "og:title", content: "Impressum | YLT Services" },
       { property: "og:description", content: "Anbieterkennzeichnung nach § 5 DDG für YLT Services." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),

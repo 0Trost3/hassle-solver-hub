@@ -1,8 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
-  createRootRouteWithContext,
+  createRootRoute,
   useRouter,
   HeadContent,
   Scripts,
@@ -11,9 +10,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { AuthProvider } from "@/hooks/useAuth";
 import { AuroraBackground } from "@/components/site/AuroraBackground";
-import { Toaster } from "@/components/ui/sonner";
+import { Button } from "@/components/ui/button";
 
 function NotFoundComponent() {
   return (
@@ -50,15 +48,15 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           uns.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
+          <Button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground"
+            className="min-h-12 rounded-lg"
           >
             Erneut versuchen
-          </button>
+          </Button>
           <a
             href="/"
             className="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-surface px-5 text-sm font-medium ring-1 ring-border"
@@ -71,7 +69,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -117,20 +115,12 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <div className="relative min-h-screen overflow-x-hidden">
-          <AuroraBackground />
-          <div className="relative z-10">
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <Outlet />
-          </div>
-        </div>
-        <Toaster position="top-center" />
-      </AuthProvider>
-    </QueryClientProvider>
+    <div className="relative min-h-screen overflow-x-hidden">
+      <AuroraBackground />
+      <div className="relative z-10">
+        <Outlet />
+      </div>
+    </div>
   );
 }
