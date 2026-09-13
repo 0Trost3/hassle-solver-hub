@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowRight, Check, Mail, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { ToneBadge } from "@/components/StatusBadge";
+import { ContactForm } from "@/components/site/ContactForm";
 import gespraechBild from "@/assets/persoenliches-gespraech.jpg";
 
 export const Route = createFileRoute("/")({
@@ -19,6 +20,8 @@ export const Route = createFileRoute("/")({
         content:
           "Du musst nicht weiter hinterhertelefonieren. Wir übernehmen das Gespräch mit deinem Dienstleister – persönlich und mit klarer Frist.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Landing,
@@ -75,14 +78,14 @@ const FRAGEN = [
 
 function Landing() {
   return (
-    <div className="mx-auto max-w-[440px] px-5 pb-16 md:max-w-3xl">
+    <div className="mx-auto max-w-[440px] px-5 pb-16 md:max-w-5xl md:px-8">
       <SiteHeader />
 
-      {/* Hero */}
-      <section className="pt-4 pb-8">
-        <ToneBadge tone="positive" pulse className="bg-surface ring-border">
-          <span className="font-medium text-foreground/70">Persönlich. Nicht an eine Hotline.</span>
-        </ToneBadge>
+      <main>
+      <section className="pt-8 pb-12 md:pt-16 md:pb-20">
+        <p className="text-[12px] font-semibold tracking-[0.14em] text-success uppercase">
+          Persönlich. Nicht an eine Hotline.
+        </p>
         <h1 className="mt-5 max-w-[9ch] text-[40px] leading-[1.04] font-semibold tracking-tight text-balance md:max-w-[14ch] md:text-6xl">
           Handwerker meldet sich nicht? Wir kümmern uns darum.
         </h1>
@@ -92,94 +95,52 @@ function Landing() {
         </p>
 
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          <Link
-            to="/fall-erstellen"
-            className="flex min-h-[54px] items-center justify-center gap-2 rounded-xl bg-primary px-6 text-base font-semibold text-primary-foreground ring-1 ring-primary/60 transition-colors hover:bg-primary-deep"
+          <a
+            href="#kontakt"
+            className="flex min-h-[54px] items-center justify-center gap-2 rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground ring-1 ring-primary/60 transition-colors hover:bg-primary-deep"
           >
-            Problem schildern <span className="text-lg leading-none">→</span>
-          </Link>
-          <Link
-            to="/so-funktionierts"
-            className="flex min-h-[50px] items-center justify-center rounded-xl bg-surface px-6 text-base font-medium ring-1 ring-border transition-colors hover:bg-surface-strong"
+            Problem schildern <ArrowRight className="size-4" aria-hidden="true" />
+          </a>
+          <a
+            href="#ablauf"
+            className="flex min-h-[50px] items-center justify-center rounded-lg bg-surface px-6 text-base font-medium ring-1 ring-border transition-colors hover:bg-surface-strong"
           >
             So funktioniert’s
-          </Link>
+          </a>
         </div>
       </section>
 
-      {/* Beispiel-Fallkarte */}
-      <section className="fade-up">
-        <div className="panel p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-medium tracking-[0.14em] text-foreground/45 uppercase">
-              Beispiel eines Falls
-            </span>
-            <span className="font-mono text-[12px] font-medium text-foreground/55 tabular-nums">
-              #WK-2026-00482
-            </span>
-          </div>
-
-          <div className="mt-4 flex flex-wrap items-center gap-2.5">
-            <ToneBadge tone="progress" pulse>
-              Wird geprüft
-            </ToneBadge>
-            <span className="text-[12px] text-foreground/45">Erstellt 07.09.2026</span>
-          </div>
-
-          <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-4">
-            {[
-              ["Dienstleister", "Muster Sanitär GmbH"],
-              ["Problem", "Keine Rückmeldung"],
-              ["Fertigstellung", "15.08.2026"],
-              ["Vereinbarter Preis", "4.800 €"],
-            ].map(([k, v]) => (
-              <div key={k}>
-                <dt className="text-[11px] text-foreground/45">{k}</dt>
-                <dd className="mt-0.5 text-[14px] font-medium text-foreground/90">{v}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <div className="mt-5 flex items-start gap-3 rounded-[14px] bg-primary/12 px-4 py-3 ring-1 ring-primary/25">
-            <span className="mt-0.5 shrink-0 text-base leading-none text-primary">→</span>
-            <p className="text-[13px] leading-snug text-foreground/85">
-              <span className="font-semibold text-foreground">Nächster Schritt:</span> Wir prüfen
-              deinen Fall und melden uns persönlich bei dir.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Problem-Szenarien */}
-      <section className="fade-up pt-12">
+      <section id="hilfe" className="scroll-mt-8 border-t border-hairline pt-12 md:pt-16">
         <h2 className="max-w-[20ch] text-[20px] font-semibold tracking-tight text-balance">
           Typische Situationen, in denen wir helfen
         </h2>
-        <div className="mt-5 flex flex-col gap-2.5">
+        <div className="mt-6 grid gap-3 md:grid-cols-3">
           {SZENARIEN.map((s) => (
-            <Link
+            <a
               key={s.title}
-              to="/fall-erstellen"
-              className="panel-quiet flex items-center justify-between px-4 py-4 transition-colors hover:bg-surface-strong"
+              href="#kontakt"
+              className="panel-quiet flex min-h-36 flex-col justify-between px-4 py-4 transition-colors hover:bg-surface-strong"
             >
               <span>
                 <span className="block text-[15px] font-medium text-foreground/90">{s.title}</span>
-                <span className="mt-0.5 block text-[13px] text-foreground/50">{s.text}</span>
+                <span className="mt-2 block text-[13px] leading-relaxed text-foreground/50">{s.text}</span>
               </span>
-              <span className="shrink-0 pl-3 text-lg text-foreground/30">→</span>
-            </Link>
+              <ArrowRight className="mt-4 size-4 text-primary" aria-hidden="true" />
+            </a>
           ))}
         </div>
       </section>
 
-      {/* So funktioniert es */}
-      <section className="fade-up pt-12">
+      <section id="ablauf" className="scroll-mt-8 pt-14 md:pt-20">
         <h2 className="text-[20px] font-semibold tracking-tight">So funktioniert’s</h2>
-        <ol className="mt-5 flex flex-col">
+        <p className="mt-2 max-w-[52ch] text-sm leading-relaxed text-foreground/55">
+          Ein klarer Ablauf, bei dem du jederzeit weißt, was als Nächstes passiert.
+        </p>
+        <ol className="mt-6 grid md:grid-cols-2 md:gap-x-10">
           {SCHRITTE.map((s, i) => (
             <li
               key={s.nr}
-              className={`flex gap-4 py-4 ${i < SCHRITTE.length - 1 ? "border-b border-hairline" : ""}`}
+              className={`flex gap-4 py-4 ${i < SCHRITTE.length - 1 ? "border-b border-hairline md:border-b-0" : ""}`}
             >
               <span className="shrink-0 pt-0.5 text-[13px] font-semibold text-primary tabular-nums">
                 {s.nr}
@@ -193,45 +154,35 @@ function Landing() {
         </ol>
       </section>
 
-      {/* Persönlicher Service */}
-      <section className="pt-12">
-        <div className="panel overflow-hidden">
+      <section id="persoenlich" className="scroll-mt-8 pt-14 md:pt-20">
+        <div className="grid overflow-hidden border-y border-hairline md:grid-cols-[1.1fr_1fr]">
           <img
             src={gespraechBild}
             alt="Person am Schreibtisch telefoniert und macht sich Notizen"
             width={1024}
             height={768}
             loading="lazy"
-            className="aspect-[16/10] w-full object-cover"
+            className="aspect-[16/10] h-full w-full object-cover"
           />
-          <div className="p-5">
-            <h2 className="text-[19px] font-semibold tracking-tight text-balance">
+          <div className="py-6 md:p-10">
+            <p className="text-[11px] font-semibold tracking-[0.14em] text-primary uppercase">YLT Services</p>
+            <h2 className="mt-3 text-[24px] font-semibold tracking-tight text-balance">
               Ein echter Mensch kümmert sich darum.
             </h2>
             <p className="mt-2.5 text-[14px] leading-relaxed text-foreground/60 text-pretty">
               Wir hören zu, wir rufen an, wir bleiben dran. Kein Ticket in die Warteschleife —
               sondern ein persönliches Gespräch.
             </p>
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="panel-quiet px-3 py-2.5">
-                <div className="text-[12px] text-foreground/45">Bearbeitung</div>
-                <div className="text-[13.5px] font-medium text-foreground/90">
-                  bis zu 2 Werktage
-                </div>
-              </div>
-              <div className="panel-quiet px-3 py-2.5">
-                <div className="text-[12px] text-foreground/45">Kontakt</div>
-                <div className="text-[13.5px] font-medium text-foreground/90">
-                  persönlich &amp; sicher
-                </div>
-              </div>
+            <div className="mt-5 space-y-3 text-[13.5px] text-foreground/75">
+              <p className="flex items-center gap-2"><Check className="size-4 text-success" /> Rückmeldung in der Regel am selben Werktag</p>
+              <p className="flex items-center gap-2"><Check className="size-4 text-success" /> Persönliche und klare Kommunikation</p>
+              <p className="flex items-center gap-2"><Check className="size-4 text-success" /> Keine Rechtsberatung, keine falschen Versprechen</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="pt-12">
+      <section id="fragen" className="scroll-mt-8 pt-14 md:pt-20">
         <h2 className="text-[20px] font-semibold tracking-tight">Häufige Fragen</h2>
         <div className="mt-4 flex flex-col gap-2.5">
           {FRAGEN.map((f) => (
@@ -249,20 +200,27 @@ function Landing() {
         </div>
       </section>
 
-      {/* Abschluss-CTA */}
-      <section className="pt-12">
-        <div className="rounded-[22px] bg-primary/15 p-6 ring-1 ring-primary/30">
-          <h2 className="max-w-[16ch] text-[22px] leading-[1.1] font-semibold tracking-tight text-balance">
-            Endlich kümmert sich jemand darum.
-          </h2>
-          <Link
-            to="/fall-erstellen"
-            className="mt-5 flex min-h-[54px] items-center justify-center gap-2 rounded-xl bg-primary text-base font-semibold text-primary-foreground ring-1 ring-primary/60 transition-colors hover:bg-primary-deep"
-          >
-            Problem schildern <span className="text-lg leading-none">→</span>
-          </Link>
+      <section id="kontakt" className="scroll-mt-8 pt-14 md:pt-20">
+        <div className="border-t border-hairline pt-10 md:grid md:grid-cols-[0.8fr_1.2fr] md:gap-14">
+          <div>
+            <p className="text-[11px] font-semibold tracking-[0.14em] text-primary uppercase">Kontakt</p>
+            <h2 className="mt-3 max-w-[16ch] text-[28px] leading-[1.1] font-semibold tracking-tight text-balance">
+              Endlich kümmert sich jemand darum.
+            </h2>
+            <p className="mt-3 text-[14px] leading-relaxed text-foreground/55">
+              Schreib uns, wo die Kommunikation feststeckt. Wir melden uns persönlich bei dir.
+            </p>
+            <div className="mt-6 space-y-3 text-[13px] text-foreground/60">
+              <a className="flex items-center gap-2 hover:text-foreground" href="tel:+4915770361963"><Phone className="size-4 text-primary" /> +49 157 70361963</a>
+              <a className="flex items-center gap-2 break-all hover:text-foreground" href="mailto:ylt.servicesdortmund@gmail.com"><Mail className="size-4 shrink-0 text-primary" /> ylt.servicesdortmund@gmail.com</a>
+            </div>
+          </div>
+          <div className="mt-8 md:mt-0">
+            <ContactForm />
+          </div>
         </div>
       </section>
+      </main>
 
       <SiteFooter />
     </div>

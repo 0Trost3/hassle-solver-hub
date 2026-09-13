@@ -9,13 +9,14 @@ export const Route = createFileRoute("/datenschutz")({
       {
         name: "description",
         content:
-          "Wie wir mit deinen Daten umgehen: Zweck, Speicherung, Zugriff, Löschung und deine Rechte nach DSGVO.",
+          "Datenschutzhinweise zur Website und zur Kontaktaufnahme mit YLT Services.",
       },
       { property: "og:title", content: "Datenschutz | YLT Services" },
       {
-        property: "og:description",
-        content: "Zweck, Speicherung, Zugriff, Löschung und deine Rechte nach DSGVO.",
+        property: "og:description", content: "Datenschutzhinweise zur Website und Kontaktaufnahme.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -24,24 +25,20 @@ export const Route = createFileRoute("/datenschutz")({
 
 const ABSCHNITTE = [
   {
-    title: "Welche Daten wir verarbeiten",
-    text: "Für die Bearbeitung deines Falls verarbeiten wir deine Kontaktdaten, die Angaben zum Dienstleister und zum Auftrag, deine Problembeschreibung, die dokumentierten Kontaktversuche sowie die von dir hochgeladenen Dokumente.",
+    title: "Kontaktaufnahme per E-Mail",
+    text: "Das Kontaktformular speichert und überträgt keine Eingaben. Es erstellt ausschließlich auf deinem Gerät einen vorbereiteten Entwurf in deinem E-Mail-Programm. Erst wenn du diesen Entwurf selbst absendest, erhalten wir deine Nachricht.",
   },
   {
     title: "Zweck und Rechtsgrundlage",
-    text: "Wir verarbeiten diese Daten ausschließlich, um die Kommunikation mit deinem Dienstleister in deinem Auftrag zu übernehmen (Art. 6 Abs. 1 lit. b DSGVO – Vertragserfüllung).",
+    text: "Daten aus einer von dir gesendeten E-Mail verarbeiten wir zur Bearbeitung deiner Anfrage und zur Durchführung vorvertraglicher oder vertraglicher Maßnahmen nach Art. 6 Abs. 1 lit. b DSGVO.",
   },
   {
-    title: "Zugriff",
-    text: "Deine Falldaten sind technisch so abgesichert, dass ausschließlich du selbst und autorisierte Mitarbeitende darauf zugreifen können. Interne Notizen sind für dich nicht sichtbar und werden auch nicht über die Kundenschnittstelle ausgeliefert.",
-  },
-  {
-    title: "Dokumente",
-    text: "Hochgeladene Dateien liegen in einem nicht öffentlichen Speicher. Zugriff ist nur über kurzlebige, persönlich signierte Links möglich.",
+    title: "E-Mail-Anbieter",
+    text: "Beim Versand gelten zusätzlich die Datenschutzbestimmungen deines E-Mail-Anbieters. Die Website selbst versendet keine Nachricht und gibt deine Formulareingaben nicht an einen eigenen Server oder eine Datenbank weiter.",
   },
   {
     title: "Speicherdauer und Löschung",
-    text: "Wir speichern Falldaten nur so lange, wie es für die Bearbeitung und gesetzliche Aufbewahrungsfristen nötig ist. Auf Wunsch löschen wir deinen Fall.",
+    text: "E-Mail-Nachrichten und die darin enthaltenen Daten speichern wir nur so lange, wie es für die Bearbeitung deiner Anfrage und gesetzliche Aufbewahrungspflichten erforderlich ist.",
   },
   {
     title: "Deine Rechte",

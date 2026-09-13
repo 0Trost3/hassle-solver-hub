@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { Mail, Send } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -131,7 +131,7 @@ function Field({
   label: string;
   error?: string;
   required?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <label className="block text-[13px] font-medium text-foreground/70">
