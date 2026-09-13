@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuroraBackground } from "@/components/site/AuroraBackground";
+import { Button } from "@/components/ui/button";
 
 function NotFoundComponent() {
   return (
@@ -47,15 +48,15 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           uns.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
+          <Button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground"
+            className="min-h-12 rounded-lg"
           >
             Erneut versuchen
-          </button>
+          </Button>
           <a
             href="/"
             className="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-surface px-5 text-sm font-medium ring-1 ring-border"
@@ -68,7 +69,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRoute()({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
