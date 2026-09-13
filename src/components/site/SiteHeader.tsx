@@ -1,10 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { useAuth } from "@/hooks/useAuth";
+import { Mail } from "lucide-react";
 
 /** Bewusst minimale Navigation: Marke links, ein einziger Einstieg rechts. */
 export function SiteHeader() {
-  const { user, isStaff } = useAuth();
-
   return (
     <header className="flex items-center justify-between py-5">
       <Link to="/" className="flex items-center gap-2.5">
@@ -13,21 +11,12 @@ export function SiteHeader() {
         </span>
         <span className="text-[17px] font-semibold tracking-tight">YLT Services</span>
       </Link>
-      {user ? (
-        <Link
-          to={isStaff ? "/intern" : "/meine-faelle"}
-          className="px-2 py-2 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
-        >
-          {isStaff ? "Interner Bereich" : "Meine Fälle"}
-        </Link>
-      ) : (
-        <Link
-          to="/anmelden"
-          className="px-2 py-2 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
-        >
-          Fall ansehen
-        </Link>
-      )}
+      <a
+        href="/#kontakt"
+        className="flex min-h-11 items-center gap-2 px-2 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
+      >
+        <Mail className="size-4" aria-hidden="true" /> Kontakt
+      </a>
     </header>
   );
 }

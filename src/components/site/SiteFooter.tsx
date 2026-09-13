@@ -26,9 +26,6 @@ export function SiteFooter() {
         <Link to="/datenschutz" className="hover:text-foreground/70">
           Datenschutz
         </Link>
-        <Link to="/so-funktionierts" className="hover:text-foreground/70">
-          So funktioniert’s
-        </Link>
       </div>
     </footer>
   );
